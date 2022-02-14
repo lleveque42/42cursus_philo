@@ -6,19 +6,25 @@
 #    By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 09:52:26 by lleveque          #+#    #+#              #
-#    Updated: 2022/01/31 17:34:49 by lleveque         ###   ########.fr        #
+#    Updated: 2022/02/14 15:21:38 by lleveque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ${SRCS_MAIN}
+SRCS = ${SRCS_MAIN} ${SRCS_PARSING} ${SRCS_ERROR} ${SRCS_UTILS}
 
-SRCS_MAIN = $(addprefix srcs/, philo.c)
+SRCS_MAIN = $(addprefix srcs/, main.c)
+
+SRCS_PARSING = $(addprefix srcs/parsing/, parse_args.c)
+
+SRCS_ERROR = $(addprefix srcs/error/, check_args.c check_utils.c messages.c)
+
+SRCS_UTILS = $(addprefix srcs/utils/, error_utils.c)
 
 OBJS = ${SRCS:.c=.o}
 
 NAME = philo
 
-CC = gcc
+CC = clang
 
 RM = rm -f
 

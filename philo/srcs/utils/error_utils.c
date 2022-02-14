@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 11:47:49 by lleveque          #+#    #+#             */
-/*   Updated: 2022/02/02 13:11:18 by lleveque         ###   ########.fr       */
+/*   Created: 2022/02/02 13:16:02 by lleveque          #+#    #+#             */
+/*   Updated: 2022/02/14 15:26:03 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../../philo.h"
 
-int	main(int ac, char **av)
+void	ft_putstr_fd(char *s, int fd)
 {
-	t_data data;
+	int	i;
 
-	if (ac != 5 && ac != 6)
-		return (2);
-	if (parse_args(ac, av, &data))
-		return (2);
-	return (0);
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
