@@ -1,52 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 12:59:16 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/11 12:54:33 by lleveque         ###   ########.fr       */
+/*   Created: 2022/03/13 13:53:41 by lleveque          #+#    #+#             */
+/*   Updated: 2022/03/13 15:04:10 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../philo.h"
 
-int	check_int(int ac, char **av)
-{
-	int	i;
-	int	len;
-
-	i = 1;
-	while (i < ac)
-	{
-		len = check_len(av[i]);
-		if (len > 10)
-			return (1);
-		else if (len == 10)
-		{
-			if (check_int_min_and_max(av[i]))
-				return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	check_args(int ac, char **av)
+void	init_philo(t_data *data)
 {
 	int	i;
 
-	i = 1;
-	while (av[i])
+	i = 0;
+	data->philo = malloc(sizeof(t_philo)  * data->n_philo);
+	if (!data->philo)
+		exit(malloc_went_wrong());
+	while (i < data->n_philo)
 	{
-		if (check_num(av[i]))
-			return (only_nb());
+		data->philo[i].id = i + 1;
+		data->philo[i].r_fork = NULL;
+		pthread_mutex_init(&data->philo[i].l_fork, NULL);
 		i++;
 	}
-	if (check_int(ac, av))
-		return (only_nb());
-	if (check_atoi(av))
-		return (input_look());
-	return (0);
+	i = 0;
+	while (i < data->n_philo - 1)
+	{
+		data->philo[i].r_fork = &data->philo[i + 1].l_fork;
+		i++;
+	}
+	data->philo[i].r_fork = &data->philo[0].l_fork;
 }

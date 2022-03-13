@@ -6,19 +6,21 @@
 #    By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 09:52:26 by lleveque          #+#    #+#              #
-#    Updated: 2022/02/14 15:21:38 by lleveque         ###   ########.fr        #
+#    Updated: 2022/03/13 16:03:24 by lleveque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ${SRCS_MAIN} ${SRCS_PARSING} ${SRCS_ERROR} ${SRCS_UTILS}
+SRCS = ${SRCS_MAIN} ${SRCS_PHILO} ${SRCS_PARSING} ${SRCS_ERROR} ${SRCS_UTILS}
 
 SRCS_MAIN = $(addprefix srcs/, main.c)
+
+SRCS_PHILO = $(addprefix srcs/philo/, philo.c init.c routine.c)
 
 SRCS_PARSING = $(addprefix srcs/parsing/, parse_args.c)
 
 SRCS_ERROR = $(addprefix srcs/error/, check_args.c check_utils.c messages.c)
 
-SRCS_UTILS = $(addprefix srcs/utils/, error_utils.c)
+SRCS_UTILS = $(addprefix srcs/utils/, error_utils.c parse_utils.c)
 
 OBJS = ${SRCS:.c=.o}
 
@@ -28,7 +30,7 @@ CC = clang
 
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 all:	${NAME}
 
@@ -43,7 +45,7 @@ ROSE='\033[0;35m'
 
 ${NAME}:	${OBJS}
 			@echo ${BYELLOW}"making" ${YELLOW}"${NAME}..."
-			@${CC} ${OBJS} ${CFLAG} -o ${NAME} ${LIBFT}
+			@${CC} ${OBJS} ${CFLAGS} -o ${NAME} ${LIBFT}
 			@echo ${BGREEN}"${NAME} is ready !"${NONE}
 
 .c.o:

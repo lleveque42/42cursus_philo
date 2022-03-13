@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 11:47:49 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/13 15:15:36 by lleveque         ###   ########.fr       */
+/*   Created: 2022/03/11 14:22:04 by lleveque          #+#    #+#             */
+/*   Updated: 2022/03/13 15:50:00 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../../philo.h"
 
-int	main(int ac, char **av)
+int	philo(t_data *data)
 {
-	t_data data;
-
-	if (ac != 5 && ac != 6)
-		return (wrong_nb_args());
-	parse_args(ac, av, &data);
-	philo(&data);
-	free(data.philo);
+	init_philo(data);
+	start_routine(data);
 	return (0);
 }

@@ -1,52 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 12:59:16 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/11 12:54:33 by lleveque         ###   ########.fr       */
+/*   Created: 2022/03/11 12:59:29 by lleveque          #+#    #+#             */
+/*   Updated: 2022/03/11 12:59:50 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../philo.h"
 
-int	check_int(int ac, char **av)
+int	ft_atoi(char *nptr)
 {
 	int	i;
-	int	len;
+	int	sign;
+	int	result;
 
-	i = 1;
-	while (i < ac)
+	i = 0;
+	sign = 1;
+	result = 0;
+	while ((nptr[i] >= 7 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		len = check_len(av[i]);
-		if (len > 10)
-			return (1);
-		else if (len == 10)
-		{
-			if (check_int_min_and_max(av[i]))
-				return (1);
-		}
+		if (nptr[i] == '-')
+			sign = -1;
 		i++;
 	}
-	return (0);
-}
-
-int	check_args(int ac, char **av)
-{
-	int	i;
-
-	i = 1;
-	while (av[i])
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		if (check_num(av[i]))
-			return (only_nb());
+		result = result * 10 + (nptr[i] - 48);
 		i++;
 	}
-	if (check_int(ac, av))
-		return (only_nb());
-	if (check_atoi(av))
-		return (input_look());
-	return (0);
+	return (sign * result);
 }
