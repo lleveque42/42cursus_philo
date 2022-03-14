@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 14:22:04 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/14 18:44:46 by lleveque         ###   ########.fr       */
+/*   Created: 2022/03/14 15:58:15 by lleveque          #+#    #+#             */
+/*   Updated: 2022/03/14 17:46:44 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../philo.h"
 
-int	philo(t_data *data)
+void	ft_usleep(long int time)
 {
-	int	i;
+	long int	start_time;
 
-	i = 0;
-	init_philo(data);
-	init_mutex(data);
-	data->start_time = get_time();
-	start_threading(data);
-	while (i < data->n_philo)
-	{
-		pthread_join(data->philo[i].thread, NULL);
-		i++;
-	}
-	return (0);
+	start_time = get_time();
+	while ((get_time() - start_time) < time)
+		usleep(time / 10);
+}
+
+long int	get_time(void)
+{
+	long int	current_time;
+	t_timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		ft_exit("Error\nTime was not returned.\n");
+	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (current_time);
 }

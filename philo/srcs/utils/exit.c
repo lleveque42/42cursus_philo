@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 14:22:04 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/14 18:44:46 by lleveque         ###   ########.fr       */
+/*   Created: 2022/03/14 14:47:44 by lleveque          #+#    #+#             */
+/*   Updated: 2022/03/14 14:58:30 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../philo.h"
 
-int	philo(t_data *data)
+void	ft_exit(char *msg)
 {
-	int	i;
-
-	i = 0;
-	init_philo(data);
-	init_mutex(data);
-	data->start_time = get_time();
-	start_threading(data);
-	while (i < data->n_philo)
-	{
-		pthread_join(data->philo[i].thread, NULL);
-		i++;
-	}
-	return (0);
+	ft_putstr_fd(msg, 2);
+	exit(1);
 }

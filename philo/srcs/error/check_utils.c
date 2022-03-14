@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:03:04 by lleveque          #+#    #+#             */
-/*   Updated: 2022/02/14 17:47:53 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/13 16:37:55 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	check_atoi(char **av)
 	while (av[i])
 	{
 		j = 0;
-		while (av[i][j] && ((av[i][j] >= 7 && av[i][j] <= 13) || av[i][j] == ' '))
+		while (av[i][j] && ((av[i][j] >= 7 && av[i][j] <= 13)
+				|| av[i][j] == ' '))
 			j++;
 		if (av[i][j] && av[i][j] == '+')
 			j++;
@@ -53,7 +54,8 @@ int	check_atoi(char **av)
 			return (1);
 		while (av[i][j] && ft_isdigit(av[i][j]))
 			j++;
-		while (av[i][j] && ((av[i][j] >= 7 && av[i][j] <= 13) || av[i][j] == ' '))
+		while (av[i][j] && ((av[i][j] >= 7 && av[i][j] <= 13)
+				|| av[i][j] == ' '))
 			j++;
 		if (av[i][j] != '\0')
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:11:53 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/13 14:24:46 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:47:01 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	only_nb(void)
 
 int	input_look(void)
 {
-	ft_putstr_fd("Error\nInput must look like this : ./philo 1 2 3 4 or ./philo +1 +2 +3 +4.\n", 2);
+	ft_putstr_fd("Error\nInput must look like this : ./philo 1 2 3 4 or \
+./philo +1 +2 +3 +4.\n", 2);
 	return (1);
 }
 
