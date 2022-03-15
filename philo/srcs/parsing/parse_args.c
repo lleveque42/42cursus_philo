@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:17:19 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/13 14:15:32 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:10:52 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_param(int ac, char **av, t_data *data)
 	data->ttdie = ft_atoi(av[2]);
 	data->tteat = ft_atoi(av[3]);
 	data->ttsleep = ft_atoi(av[4]);
-	data->n_eat = 0;
+	data->n_eat = 2147483647;
 	if (ac == 6)
 		data->n_eat = ft_atoi(av[5]);
 	return (0);

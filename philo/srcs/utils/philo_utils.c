@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:58:15 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/14 17:46:44 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:25:23 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ long int	get_time(void)
 	t_timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		ft_exit("Error\nTime was not returned.\n");
+	{
+		ft_putstr_fd("Error\nPthread was not created.\n", 2);
+		exit (1);
+	}
 	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (current_time);
 }

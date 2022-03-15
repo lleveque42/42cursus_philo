@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:48:32 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/14 17:35:13 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:23:15 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ typedef struct timeval	t_timeval;
 struct s_philo
 {
 	int				id;
+	int				eat_count;
+	long int		last_eat;
 	pthread_t		thread;
+	pthread_t		death;
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	eat_mutex;
 	t_data			*data;
 };
 
@@ -41,7 +45,6 @@ struct s_data
 	int				n_eat;
 	long int		start_time;
 	pthread_mutex_t	write_mutex;
-	pthread_mutex_t	eat_mutex;
 	t_philo			*philo;
 };
 
@@ -54,7 +57,7 @@ int			only_nb(void);
 int			input_look(void);
 int			time_to_long(void);
 int			malloc_went_wrong(void);
-void		ft_exit(char *msg);
+void		ft_exit(t_data *data);
 void		ft_putstr_fd(char *s, int fd);
 int			check_int_min_and_max(char *s);
 int			check_args(int ac, char **av);

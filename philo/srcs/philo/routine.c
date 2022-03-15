@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:13:10 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/14 18:55:30 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:35:51 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ void	routine(t_philo *philo)
 	pthread_mutex_lock(&philo->data->write_mutex);
 	status("has taken a fork\n", philo);
 	pthread_mutex_unlock(&philo->data->write_mutex);
-	// pthread_mutex_lock(&philo->data->eat_mutex);
 	pthread_mutex_lock(&philo->data->write_mutex);
 	status("is eating\n", philo);
 	pthread_mutex_unlock(&philo->data->write_mutex);
-	// pthread_mutex_unlock(&philo->data->eat_mutex);
+	pthread_mutex_lock(&philo->eat_mutex);
+	philo->last_eat = get_time() - philo->data->start_time;
+	philo->eat_count++;
+	pthread_mutex_unlock(&philo->eat_mutex);
 	ft_usleep(philo->data->tteat);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(&philo->l_fork);
