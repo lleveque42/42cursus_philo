@@ -6,7 +6,7 @@
 #    By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/15 09:52:26 by lleveque          #+#    #+#              #
-#    Updated: 2022/03/14 15:59:06 by lleveque         ###   ########.fr        #
+#    Updated: 2022/03/15 18:19:18 by lleveque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_PARSING = $(addprefix srcs/parsing/, parse_args.c)
 
 SRCS_ERROR = $(addprefix srcs/error/, check_args.c check_utils.c messages.c)
 
-SRCS_UTILS = $(addprefix srcs/utils/, error_utils.c parse_utils.c philo_utils.c exit.c)
+SRCS_UTILS = $(addprefix srcs/utils/, error_utils.c parse_utils.c philo_utils.c free.c)
 
 OBJS = ${SRCS:.c=.o}
 

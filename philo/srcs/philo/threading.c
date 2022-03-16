@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 15:50:20 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/15 16:24:47 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:45:03 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,19 @@ void	*check_death(void *data)
 			if (philo->eat_count == philo->data->n_eat)
 				return (NULL);
 			pthread_mutex_lock(&philo->data->write_mutex);
+			pthread_mutex_lock(&philo->data->dead);
+			philo->data->stop = 1;
 			printf("%ld %d died\n", get_time() - philo->data->start_time, philo->id);
-			ft_exit(philo->data);
 		}
 		pthread_mutex_unlock(&philo->eat_mutex);
+		if (philo->data->stop)
+		{
+			pthread_mutex_unlock(&philo->data->dead);
+			return (NULL);
+		}
+		pthread_mutex_unlock(&philo->data->dead);
 	}
+	return (NULL);
 }
 
 void	*threading(void *data)
@@ -45,10 +53,22 @@ void	*threading(void *data)
 	pthread_create(&philo->death, NULL, check_death, philo);
 	while (i < philo->data->n_eat)
 	{
+		pthread_mutex_lock(&philo->data->dead);
+		printf("philo data stop = %d\n", philo->data->stop);
+		if (philo->data->stop)
+		{
+			printf("test\n");
+			pthread_mutex_unlock(&philo->data->dead);
+			return (NULL);
+		}
+		pthread_mutex_unlock(&philo->data->dead);
 		routine(philo);
 		i++;
 	}
-	pthread_detach(philo->death);
+	pthread_mutex_lock(&philo->data->dead);
+	printf("fin philo data stop = %d\n", philo->data->stop);
+	pthread_mutex_unlock(&philo->data->dead);
+	// pthread_detach(philo->death);
 	return (NULL);
 }
 

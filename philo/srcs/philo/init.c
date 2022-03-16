@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 13:53:41 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/15 15:39:13 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:24:35 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_mutex(t_data	*data)
 
 	i = 0;
 	pthread_mutex_init(&data->write_mutex, NULL);
+	pthread_mutex_init(&data->dead, NULL);
 	while (i < data->n_philo)
 	{
 		pthread_mutex_init(&data->philo[i].eat_mutex, NULL);
@@ -50,4 +51,5 @@ void	init_philo(t_data *data)
 		i++;
 	}
 	data->philo[i].r_fork = &data->philo[0].l_fork;
+	data->stop = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:48:32 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/15 16:23:15 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:24:19 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ struct s_data
 	int				tteat;
 	int				ttsleep;
 	int				n_eat;
+	int				stop;
 	long int		start_time;
 	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	dead;
 	t_philo			*philo;
 };
 
@@ -57,7 +59,7 @@ int			only_nb(void);
 int			input_look(void);
 int			time_to_long(void);
 int			malloc_went_wrong(void);
-void		ft_exit(t_data *data);
+void		ft_free(t_data *data);
 void		ft_putstr_fd(char *s, int fd);
 int			check_int_min_and_max(char *s);
 int			check_args(int ac, char **av);

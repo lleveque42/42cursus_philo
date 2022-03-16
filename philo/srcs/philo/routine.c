@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:13:10 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/15 15:35:51 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:43:25 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ void	routine(t_philo *philo)
 	pthread_mutex_lock(&philo->data->write_mutex);
 	status("has taken a fork\n", philo);
 	pthread_mutex_unlock(&philo->data->write_mutex);
+	pthread_mutex_lock(&philo->data->dead);
+	printf("data stop %d\n", philo->data->stop);
+	if (philo->r_fork == &philo->l_fork || philo->data->stop)
+	{
+		philo->data->stop = 1;
+		pthread_mutex_unlock(&philo->data->dead);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data->dead);
 	pthread_mutex_lock(philo->r_fork);
 	pthread_mutex_lock(&philo->data->write_mutex);
 	status("has taken a fork\n", philo);
