@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:48:32 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/16 15:53:21 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:58:54 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int			only_nb(void);
 int			input_look(void);
 int			time_to_long(void);
 int			malloc_went_wrong(void);
+int			error(char *s);
 void		ft_free(t_data *data);
-void		unlock_mutex(t_data *data);
 void		destroy_mutex(t_data *data);
 void		ft_putstr_fd(char *s, int fd);
 int			check_int_min_and_max(char *s);
@@ -69,10 +69,10 @@ int			ft_atoi(char *nptr);
 int			parse_args(int ac, char **av, t_data *data);
 int			philo(t_data *data);
 long int	get_time(void);
-void		ft_usleep(long int time);
-void		init_philo(t_data *data);
-void		init_mutex(t_data	*data);
-void		start_threading(t_data *data);
+void		ft_usleep(long int time, t_data *data);
+int			init_philo(t_data *data);
+int			init_mutex(t_data	*data);
+int			start_threading(t_data *data);
 int			routine(t_philo *philo);
 void		routine_sleep_think(t_philo *philo);
 void		status(char *status, t_philo *philo);

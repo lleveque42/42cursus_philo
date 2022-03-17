@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 15:50:20 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/16 16:48:12 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:59:19 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	stop(t_data	*data, int i)
 {
+	pthread_mutex_unlock(&data->philo[i].eat_mutex);
 	pthread_mutex_lock(&data->write_mutex);
-	pthread_mutex_lock(&data->stop_checker);
 	status("died\n", &data->philo[i]);
+	pthread_mutex_unlock(&data->write_mutex);
+	pthread_mutex_lock(&data->stop_checker);
 	data->stop = 1;
 	pthread_mutex_unlock(&data->stop_checker);
-	pthread_mutex_unlock(&data->write_mutex);
-	unlock_mutex(data);
 }
 
 void	*check_death(void *data_void)
@@ -38,8 +38,11 @@ void	*check_death(void *data_void)
 			if ((get_time() - data->philo[i].last_eat - data->start_time)
 				> data->ttdie)
 			{
-				if (data->philo[i].eat_count == data->n_eat)
+				if (data->n_eat != 0 && data->philo[i].eat_count == data->n_eat)
+				{
+					pthread_mutex_unlock(&data->philo[i].eat_mutex);
 					return (NULL);
+				}
 				stop(data, i);
 				return (NULL);
 			}
@@ -57,9 +60,18 @@ void	*threading(void *data)
 	i = 0;
 	philo = (t_philo *)data;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->data->tteat / 10);
-	while (i < philo->data->n_eat)
+		ft_usleep(philo->data->tteat / 10, philo->data);
+	while (1)
 	{
+		if (philo->data->n_eat != -1 && i >= philo->data->n_eat)
+			break ;
+		pthread_mutex_lock(&philo->data->stop_checker);
+		if (philo->data->stop)
+		{
+			pthread_mutex_unlock(&philo->data->stop_checker);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->stop_checker);
 		if (routine(philo))
 			break ;
 		i++;
@@ -67,20 +79,21 @@ void	*threading(void *data)
 	return (NULL);
 }
 
-void	start_threading(t_data *data)
+int	start_threading(t_data *data)
 {
 	int	i;
 
 	i = 0;
+	if (!data->n_eat)
+		return (0);
 	while (i < data->n_philo)
 	{
 		if (pthread_create(&data->philo[i].thread, NULL, threading,
 				&data->philo[i]))
-		{
-			ft_putstr_fd("Error\nPthread was not created.\n", 2);
-			exit (1);
-		}
+			return (error("Pthread was not created.\n"));
 		i++;
 	}
-	pthread_create(&data->death_checker, NULL, check_death, data);
+	if (pthread_create(&data->death_checker, NULL, check_death, data))
+		return (error("Pthread was not created.\n"));
+	return (0);
 }
