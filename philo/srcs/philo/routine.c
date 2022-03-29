@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:13:10 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/17 18:07:57 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/29 20:32:58 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	routine_sleep_think(t_philo *philo)
 	pthread_mutex_lock(&philo->data->write_mutex);
 	status("is thinking\n", philo);
 	pthread_mutex_unlock(&philo->data->write_mutex);
+	if (philo->data->ttsleep < philo->data->tteat)
+		ft_usleep(((philo->data->tteat - philo->data->ttsleep) + 1),
+			philo->data);
 }
 
 int	routine(t_philo *philo)

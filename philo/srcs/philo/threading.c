@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 15:50:20 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/17 19:43:16 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/29 20:39:45 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	*check_death(void *data_void)
 		while (i < data->n_philo)
 		{
 			pthread_mutex_lock(&data->philo[i].eat_mutex);
+			if (data->n_eat != 0 && data->philo[i].eat_count == data->n_eat)
+			{
+				pthread_mutex_unlock(&data->philo[i].eat_mutex);
+				return (NULL);
+			}
 			if ((get_time() - data->philo[i].last_eat - data->start_time)
 				> data->ttdie)
 			{
-				if (data->n_eat != 0 && data->philo[i].eat_count == data->n_eat)
-				{
-					pthread_mutex_unlock(&data->philo[i].eat_mutex);
-					return (NULL);
-				}
 				stop(data, i);
 				return (NULL);
 			}

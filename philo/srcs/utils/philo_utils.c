@@ -6,7 +6,7 @@
 /*   By: lleveque <lleveque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:58:15 by lleveque          #+#    #+#             */
-/*   Updated: 2022/03/17 18:30:21 by lleveque         ###   ########.fr       */
+/*   Updated: 2022/03/29 20:31:52 by lleveque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_usleep(long int time, t_data *data)
 			return ;
 		}
 		pthread_mutex_unlock(&data->stop_checker);
-		usleep(time / 1000);
+		usleep(1000);
 	}
 }
 
